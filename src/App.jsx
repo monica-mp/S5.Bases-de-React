@@ -33,9 +33,12 @@ export function App() {
   const [step, setStep] = useState(0);
   const currentCardData = tutorialData[step];
 
+  function nextStep() {
+    setStep(prev => prev + 1);
+  }
   return (
     <div className="App">
-      <Card currentCardData={currentCardData}/>
+      <Card currentCardData={currentCardData} nextStep={nextStep}/>
     </div>
   );
 }
