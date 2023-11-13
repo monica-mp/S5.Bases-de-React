@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
-function Card({ currentCardData, nextStep }) {
+function Card({ currentCardData, nextStep, prevStep, step, steps }) {
   const CardContainer = styled.div`
     margin: 0;
     font-family: "Poppins", sans-serif;
     background-color: ${(props) => props.bgColor || "white"};
     width: 350px;
     height: 700px;
-
     box-shadow: 2px 2px 40px gray;
     border-radius: 30px;
   `;
@@ -27,6 +26,7 @@ function Card({ currentCardData, nextStep }) {
   const CardBody = styled.div`
     display: flex;
     flex-direction: column;
+    height: 35%;    
     position: relative;
     background-color: white;
     padding: 20px 25px;
@@ -38,19 +38,40 @@ function Card({ currentCardData, nextStep }) {
   `;
   const CardP = styled.p`
     font-size: 14px;
-    margin: 0;
+    height: 70px;
+  `;
+
+  const Buttons = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    height: 200px;
+    
   `;
 
   const Button = styled.button`
+    
+    top: 0;
+    right: 0;
     background-color: #2e2e2e;
     color: white;
     border-radius: 50%;
     padding: 20px;
-    margin: 25px 15px;
+    margin: 25px 5px;
     border: none;
     cursor: pointer;
-    align-self: flex-end;
+    
   `;
+  const Button1 = styled.button`
+  background-color: white;
+  color: #424242;
+  border-radius: 50%;
+  padding: 20px;
+  margin: 25px 5px;
+  border: 1px solid #424242;
+  cursor: pointer;
+  
+  
+`;
 
   return (
     <CardContainer bgColor={currentCardData.bgColor}>
@@ -60,7 +81,16 @@ function Card({ currentCardData, nextStep }) {
       <CardBody>
         <CardTitle className="card-title">{currentCardData.title}</CardTitle>
         <CardP className="card-content">{currentCardData.description}</CardP>
-        <Button onClick={nextStep}>→</Button>
+        <Buttons className="card-buttons">
+          {step === 0 && <Button onClick={nextStep}>⮕</Button>}
+          {step > 0 && step < steps - 1 && (
+            <div>
+              <Button1 onClick={prevStep}>⬅</Button1>
+              <Button onClick={nextStep}>⮕</Button>
+            </div>
+          )}
+          {step === steps - 1 && <Button1 onClick={prevStep}>←</Button1>}
+        </Buttons>
       </CardBody>
     </CardContainer>
   );

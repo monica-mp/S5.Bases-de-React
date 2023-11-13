@@ -35,8 +35,17 @@ export function App() {
   const [step, setStep] = useState(0);
   const currentCardData = tutorialData[step];
 
+
   function nextStep() {
-    setStep((prev) => prev + 1);
+    if (step < tutorialData.length - 1) {
+      setStep(step + 1);
+    }
+  }
+
+  function prevStep() {
+    if (step > 0) {
+      setStep(step - 1);
+    }
   }
 
   const GlobalStyle = createGlobalStyle`
@@ -58,7 +67,7 @@ export function App() {
     <>
       <GlobalStyle />
       <AppStyle className="App">
-        <Card currentCardData={currentCardData} nextStep={nextStep} />
+        <Card currentCardData={currentCardData} nextStep={nextStep} prevStep={prevStep} step={step} steps={tutorialData.length}/>
       </AppStyle>
     </>
   );
