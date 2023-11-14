@@ -3,7 +3,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 
-
 import image1 from "./assets/time_managment.svg";
 import image2 from "./assets/programming.svg";
 import image3 from "./assets/meditation.svg";
@@ -35,8 +34,6 @@ export function App() {
 
   const [step, setStep] = useState(0);
   const currentCardData = tutorialData[step];
- 
-
 
   function nextStep() {
     if (step < tutorialData.length - 1) {
@@ -49,6 +46,10 @@ export function App() {
       setStep(step - 1);
     }
   }
+
+  const onDotClick = (index) => {
+    setStep(index);
+  };
 
   const GlobalStyle = createGlobalStyle`
   body {
@@ -69,7 +70,14 @@ export function App() {
     <>
       <GlobalStyle />
       <AppStyle className="App">
-        <Card currentCardData={currentCardData} nextStep={nextStep} prevStep={prevStep} currentStep={step} totalSteps={tutorialData.length}/>        
+        <Card
+          currentCardData={currentCardData}
+          nextStep={nextStep}
+          prevStep={prevStep}
+          currentStep={step}
+          totalSteps={tutorialData.length}
+          onDotClick={onDotClick}
+        />
       </AppStyle>
     </>
   );

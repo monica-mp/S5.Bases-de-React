@@ -1,7 +1,14 @@
 import styled from "styled-components";
 import Indicator from "./Indicator.jsx";
 
-function Card({ currentCardData, nextStep, prevStep, currentStep, totalSteps }) {
+function Card({
+  currentCardData,
+  nextStep,
+  prevStep,
+  currentStep,
+  totalSteps,
+  onDotClick,
+}) {
   const CardContainer = styled.div`
     margin: 0;
     font-family: "Poppins", sans-serif;
@@ -70,8 +77,6 @@ function Card({ currentCardData, nextStep, prevStep, currentStep, totalSteps }) 
     cursor: pointer;
   `;
 
- 
-
   return (
     <CardContainer bgColor={currentCardData.bgColor}>
       <ImageContainer>
@@ -79,9 +84,13 @@ function Card({ currentCardData, nextStep, prevStep, currentStep, totalSteps }) 
       </ImageContainer>
       <CardBody>
         <CardTitle className="card-title">{currentCardData.title}</CardTitle>
-        <CardP className="card-content">{currentCardData.description}</CardP>       
-        <Buttons className="card-buttons">  
-        <Indicator currentStep={currentStep} totalSteps={totalSteps} />        
+        <CardP className="card-content">{currentCardData.description}</CardP>
+        <Buttons className="card-buttons">
+          <Indicator
+            currentStep={currentStep}
+            totalSteps={totalSteps}
+            onDotClick={onDotClick}
+          />
           {currentStep === 0 && <Button onClick={nextStep}>⮕</Button>}
           {currentStep > 0 && currentStep < totalSteps - 1 && (
             <div>
@@ -89,7 +98,9 @@ function Card({ currentCardData, nextStep, prevStep, currentStep, totalSteps }) 
               <Button onClick={nextStep}>⮕</Button>
             </div>
           )}
-          {currentStep === totalSteps - 1 && <Button1 onClick={prevStep}>←</Button1>}
+          {currentStep === totalSteps - 1 && (
+            <Button1 onClick={prevStep}>←</Button1>
+          )}
         </Buttons>
       </CardBody>
     </CardContainer>
